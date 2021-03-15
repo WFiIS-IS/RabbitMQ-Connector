@@ -63,8 +63,6 @@ class Connector {
 
         this._channel.consume(this._rpcQueue, message => {//RPC response handler
             const data = JSON.parse(message.content.toString());
-            // console.log(data);
-            // if (data.rpcQueue == this._rpcQueue) {
 
             if (this._promiseCIDs[data.cid]) {
 
@@ -79,21 +77,13 @@ class Connector {
                 console.log('WARNING!: Unhandled RPC');
                 this.ack(message)
             }
-            // }
+
         })
 
         this._channel.consume(this._mainQueue, message => {//Event handler
             const data = JSON.parse(message.content.toString());
             try {
-                // let respond;
-                // console.log(data);
-                // if (data.type == "PUSH") {
-                //     respond = (content) => {
-                //         this.push(data.rpcQueue, { cid: data.id, replyQueue: data.replyQueue, content });
-                //     }
-                // }
 
-                // console.log(data);
                 this._events[data.event]({
                     data,
                     ack: () => {
@@ -112,26 +102,18 @@ class Connector {
         })
     }
 
-
-    onPush(fun) {
-        this._onPush = fun;
-    }
-
-
     async createQueue(name, options = {}) {
         const queue = await this._channel.assertQueue(name, options);//{durable:true} keep messages if taged as persistent after restart
-        // this._queues[name] = queue;
     }
 
     async push(queue, event, content = {}, options = {}) {
-        // console.log();
+
         const data = {
             type: 'PUSH',
             cid: options.cid,
             rpcQueue: options.rpcQueue,
             event,
             content
-
         };
 
         await this._channel.sendToQueue(queue, Buffer.from(JSON.stringify(data)), { persistent: options.persistent });

@@ -13,24 +13,15 @@ let connector = new Connector({
 });
 
 const connect = async () => {
-
-
     await connector.init()
-    // connector.send('ms2-queue', { message: 'Hello' });
 
     connector.on('connection-check', ({ data, ack, respond }) => {
-
-        // console.log(data);
-
-
         console.log(data);
         if (data.type == "RPC") {
             respond({ message: 'OK' });
         }
 
-
         ack();
-
     })
 }
 connect();

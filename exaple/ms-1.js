@@ -19,8 +19,6 @@ connector.init().then(async (channel) => {
         //     message: 'Ms-1 Connected ' + new Date().valueOf()
         // });
 
-
-
         await connector.rpc('ms2-queue', 'connection-check', {
             message: 'Ms-1 Connected ' + new Date().valueOf()
         }).then(({ data, ack }) => {
@@ -30,7 +28,7 @@ connector.init().then(async (channel) => {
             ack();
 
         }).catch((err) => {
-            console.log('CZAS PRZKROZONO');
+            console.log(err);
         })
 
     }, 1000)
