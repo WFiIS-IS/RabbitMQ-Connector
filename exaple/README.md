@@ -1,0 +1,2 @@
+
+Instalacja paczek: > npm install
