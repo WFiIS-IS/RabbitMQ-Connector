@@ -1,0 +1,16 @@
+{
+  "name": "first",
+  "version": "1.0.0",
+  "description": "",
+  "main": "producer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ms1": "nodemon --ignore Connector.js --ignore ms-2.js ms-1.js",
+    "ms2": "nodemon --ignore Connector.js --ignore ms-1.js ms-2.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.7.1"
+  }
+}
